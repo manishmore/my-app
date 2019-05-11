@@ -1,7 +1,5 @@
 pipeline {
 
-def releasedVersion
-
     agent any
       tools {
         maven 'Maven 3.6.0'
@@ -38,9 +36,5 @@ def releasedVersion
               echo "TEST CASE"
             }
         }
-    }
-
-    def getReleasedVersion() {
-      return (readFile('pom.xml') = ~'<version>(.+)-SNAPSHOT</version>')[0][1]
     }
 }
