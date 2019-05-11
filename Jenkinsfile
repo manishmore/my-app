@@ -1,4 +1,7 @@
 pipeline {
+
+def releasedVersion
+
     agent any
       tools {
         maven 'Maven 3.6.0'
@@ -20,8 +23,9 @@ pipeline {
             }
         }
         stage("Docker push") {
+           releasedVersion = getReleasedVersion()
             steps {
-             echo "docker login -u username -p password"
+             echo "docker login -u username -p password: ${releasedVersion}"
             }
         }
         stage("Deploy to staging") {
@@ -34,5 +38,9 @@ pipeline {
               echo "TEST CASE"
             }
         }
+    }
+
+    def getReleasedVersion() {
+      return (readFile('pom.xml') = ~'<version>(.+)-SNAPSHOT</version>')[0][1]
     }
 }
