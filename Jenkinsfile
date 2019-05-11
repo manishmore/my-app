@@ -21,13 +21,12 @@ pipeline {
         }
         stage("Docker push") {
             steps {
-             #sh "docker login -u username -p password"
+             echo "docker login -u username -p password"
             }
         }
         stage("Deploy to staging") {
            steps {
                 echo "Deploy to staging"
-                #sh ""
            }
         }
         stage("Acceptance test") {
