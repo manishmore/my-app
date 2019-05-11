@@ -21,7 +21,6 @@ pipeline {
             }
         }
         stage("Docker push") {
-           releasedVersion = getReleasedVersion()
             steps {
              echo "docker login -u username -p password: ${releasedVersion}"
             }
