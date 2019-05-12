@@ -1,6 +1,6 @@
 pipeline {
 
-    agent { dockerfile true }
+    agent none
       tools {
         maven 'Maven 3.6.0'
       }
@@ -21,12 +21,14 @@ pipeline {
             }
         }
         stage("Docker push") {
+          agent any
             steps {
-             echo "docker login -u username -p password"
+             //echo "docker login -u username -p password"
               sh "docker build -t example-mvn-feature ."
             }
         }
         stage("Deploy to staging") {
+           agent any
            steps {
                 echo "Deploy to staging"
                 sh "docker run -d --rm -p 8765:8080 --name springboot example-mvn-feature"
